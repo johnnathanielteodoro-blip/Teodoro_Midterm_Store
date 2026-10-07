@@ -1,0 +1,59 @@
+@model IEnumerable<Teodoro_Midterm_Store.Models.Product>
+
+<h1>Products</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Product</a>
+    <a asp-controller="Cart" asp-action="Index" class="btn btn-success">View Cart</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>₱@product.Price</td>
+                <td>@product.Category</td>
+
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@product.Id"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@product.Id"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+
+                    <form asp-controller="Cart"
+                          asp-action="Add"
+                          asp-route-id="@product.Id"
+                          method="post"
+                          style="display:inline">
+
+                        <button type="submit"
+                                class="btn btn-success btn-sm">
+                            Add to Cart
+                        </button>
+
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
